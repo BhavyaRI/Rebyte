@@ -28,24 +28,21 @@ const DataSchema = new mongoose.Schema({
     }
 });
 
-DataSchema.pre('save',async function(next){
-    if(!(this.isModified('password'))){
-        return next;
-    }
-    try {
-        const salt = bcrypt.genSalt(12);
-        const hash = bcrypt.hash(this.password,salt);
-        this.password = hash;
-        this.passwordConfirm = undefined;
-        next();
-    } catch (error) {
-        return next(err);        
-    }
+DataSchema.pre('save', async function(next) {
+    if (!this.isModified('password')) return next();
+
+    this.password = await bcrypt.hash(this.password, 12);
+    this.passwordConfirm = undefined;
+    next();
 });
 
-DataSchema.method.correctPassword = async function(loginpassword,userpassword){
-    return bcrypt.compare(loginpassword,userpassword);
-}
+
+DataSchema.methods.correctPassword = async function(
+  candidatePassword,
+  userPassword
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const userAccount = mongoose.model('userAccount',DataSchema);
 

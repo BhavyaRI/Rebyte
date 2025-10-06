@@ -14,6 +14,11 @@ if(!DB){
     process.exit(1);
 }
 
+console.log('--- Verifying Environment Variables ---');
+console.log('MONGO_URL Loaded:', !!process.env.MONGO_URL); // Should be true
+console.log('JWT_SECRET Loaded:', !!process.env.JWT_SECRET); // Should be true
+console.log('-----------------------------------');
+
 const startserver  = async () =>{
     try{
         const conn = await mongoose.connect(DB);
