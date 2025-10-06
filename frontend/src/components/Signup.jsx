@@ -1,10 +1,13 @@
 import React,{useState} from 'react';
 import axios from 'axios';
+import Login from './Login';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = ()=>{
     const[email,setEmail] = useState('');
     const[password,setPassword] = useState('');
     const[passwordConfirm,setpasswordConfirm] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
@@ -18,6 +21,8 @@ const Signup = ()=>{
             const response = await axios.post('https://psychic-system-xxxp69rwj7j399gq-3000.app.github.dev/api/signin',signupData);
             
             console.log("Signup successful:",response.data);
+            navigate('/Login');
+            
         }
         catch(error){
             console.error('There was an error signing up',error.response.data);

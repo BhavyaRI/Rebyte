@@ -1,9 +1,11 @@
 import React,{useState} from 'react';
 import axios from 'axios';
-
+import Home from './Home';
+import {useNavigate} from 'react-router-dom';
 const Login = ()=>{
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit =async(e)=>{
         e.preventDefault();
@@ -12,6 +14,7 @@ const Login = ()=>{
             const response = await axios.post('https://psychic-system-xxxp69rwj7j399gq-3000.app.github.dev/api/login',logindata);
             
             console.log('Login successful',response.data);
+            navigate('/Home');
         }
         catch(error){
             console.error('There was problem logging in',error.response.data);
