@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 const DataSchema = new mongoose.Schema({
     email:{
@@ -25,7 +26,15 @@ const DataSchema = new mongoose.Schema({
             },
             message:'Password does not match'
         }
-    }
+    },
+    passwordChangedAt: Date,
+    role:{
+        type:String,
+        enum:['user','admin'],
+        default:'user'
+    },
+    passwordResetToken:String,
+    passwordResetExpire:Date,
 });
 
 DataSchema.pre('save', async function(next) {
@@ -33,6 +42,7 @@ DataSchema.pre('save', async function(next) {
 
     this.password = await bcrypt.hash(this.password, 12);
     this.passwordConfirm = undefined;
+    this.passwordChangedAt = Date.now()-1000;
     next();
 });
 
@@ -43,6 +53,18 @@ DataSchema.methods.correctPassword = async function(
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
+
+
+DataSchema.methods.createPasswordResetToken = function() {
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    
+    this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+
+    this.passwordResetExpire = Date.now()+10*60*1000;
+
+    return resetToken;
+}
+
 
 const userAccount = mongoose.model('userAccount',DataSchema);
 
