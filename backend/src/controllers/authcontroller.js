@@ -2,7 +2,6 @@ const userAccount = require('../models/userAccount');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const sendMail = require('../utils/mail');
-const { log } = require('console');
 
 const signin = async (req ,res)=>{
     try {

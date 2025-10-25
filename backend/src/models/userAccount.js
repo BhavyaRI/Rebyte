@@ -46,7 +46,6 @@ DataSchema.pre('save', async function(next) {
     next();
 });
 
-
 DataSchema.methods.correctPassword = async function(
   candidatePassword,
   userPassword
