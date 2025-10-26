@@ -15,7 +15,7 @@ const Login = () => {
     try {
       const logindata = { email, password };
       const response = await axios.post(
-        'https://psychic-system-xxxp69rwj7j399gq-3000.app.github.dev/api/login',
+        'http://localhost:3000/api/login',
         logindata
       );
       console.log('Login successful', response.data);
@@ -24,7 +24,7 @@ const Login = () => {
       }
       navigate('/Home');
     } catch (error) {
-      console.error('There was a problem logging in', error.response.data);
+      console.error('There was a problem logging in', error.response);
     }
   };
 

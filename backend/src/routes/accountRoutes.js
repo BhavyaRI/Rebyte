@@ -1,13 +1,14 @@
 const express = require('express');
 const authcontrollers = require('../controllers/authcontroller');
 const {protect} = require('../middlewares/authMiddleware');
-const {short} = require('../controllers/urlshortcontroller');
+const {short,getAllLinks} = require('../controllers/urlshortcontroller');
 const router = express.Router();
 
 router.post('/signin',authcontrollers.signin);
 router.post('/login',authcontrollers.login);
 
 router.post('/shorten',protect,short);
+router.get('/links',getAllLinks);
 
 router.post('/forgotPassword',authcontrollers.forgotPassword);
 

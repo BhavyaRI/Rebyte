@@ -13,7 +13,7 @@ const Signup = () => {
     try {
       const signupData = { email, password, passwordConfirm };
       const response = await axios.post(
-        'https://psychic-system-xxxp69rwj7j399gq-3000.app.github.dev/api/signin',
+        'http://localhost:3000/api/signin',
         signupData
       );
       console.log('Signup successful:', response.data);

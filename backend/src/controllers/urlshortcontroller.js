@@ -1,36 +1,51 @@
-const mongoose = require('mongoose');
-const counterService = require('../utils/counterService');
-const Link = require('../models/link'); // <-- CHANGED to CommonJS 'require'
-const encode = require('../utils/base62'); // <-- CHANGED to CommonJS 'require'
-const Counter = require('../models/counter');
+const mongoose = require("mongoose");
+const counterService = require("../utils/counterService");
+const Link = require("../models/link"); // <-- CHANGED to CommonJS 'require'
+const encode = require("../utils/base62"); // <-- CHANGED to CommonJS 'require'
+const Counter = require("../models/counter");
 
 const short = async (req, res) => {
-    try {
-        const { originalURL } = req.body;
-        const newID = await counterService.nextSequence("LinkID");
-        const shortCode = encode(newID);
-        const userId = req.user._id;
-
-
-        const newLink = new Link({
-            userId:userId,
-            originalURL: originalURL,
-            shortCode: shortCode,
-        });
-
-        await newLink.save();
-
-        const shortUrl = `https://your.site/${shortCode}`;
-        res.status(201).json({ shortUrl });
+  try {
+    let { originalURL } = req.body;
+    const newID = await counterService.nextSequence("LinkID");
+    const shortCode = encode(newID);
+    const userId = req.user._id;
+    if (!/^https?:\/\//i.test(originalURL)) {
+      originalURL = "https://" + originalURL;
     }
-    catch (error) {
-        return res.status(400).json({
-            status: "failed",
-            message: error.message
-        });
-    }
+    console.log("originalURL", originalURL);
+    const newLink = new Link({
+      userId: userId,
+      originalURL: originalURL,
+      shortCode: shortCode,
+    });
+    await newLink.save();
+
+    const shortUrl = `http://localhost:3000/${shortCode}`;
+    res.status(201).json(newLink);
+  } catch (error) {
+    return res.status(400).json({
+      status: "failed",
+      message: error.message,
+    });
+  }
+};
+
+const getAllLinks = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const links = await Link.find({ userId: userId }).sort({ createdAt: -1 });
+
+    return res.status(200).json(links);
+  } catch (error) {
+    return res.status(400).json({
+      status: "failed",
+      message: error.message,
+    });
+  }
 };
 
 module.exports = {
-    short
-}
+  short,
+  getAllLinks,
+};
