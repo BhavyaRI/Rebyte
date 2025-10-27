@@ -8,7 +8,7 @@ router.post('/signin',authcontrollers.signin);
 router.post('/login',authcontrollers.login);
 
 router.post('/shorten',protect,short);
-router.get('/links',getAllLinks);
+router.get('/links',protect,getAllLinks);
 
 router.post('/forgotPassword',authcontrollers.forgotPassword);
 

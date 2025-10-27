@@ -167,6 +167,8 @@ export default function Home() {
         setError(null);
         setSurl("");
         setLoading(true);
+        //debugger added
+        //debugger;
 
         try {
             const token = localStorage.getItem('jwtToken');
@@ -217,12 +219,12 @@ export default function Home() {
                     <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
                     <div className="drawer-content">
                         {/* Flex container for the two main columns */}
-                        <div className="flex flex-row lg:flex-row p-4 lg:p-8 gap-6">
+                        <div className="flex flex-row lg:flex-row p-4 lg:p-8 gap-6 items-start">
                             
                             {/* --- COLUMN 1: FORM & STATS --- */}
                             <div className="flex flex-col gap-6 lg:w-1/3">
                                 {/* --- CREATE LINK CARD (Adjusted classes) --- */}
-                                <div className="bg-white rounded-xl p-8 border border-gray-200"> {/* Added shadow-md, border */}
+                                <div className="bg-white rounded-xl p-8 border border-gray-300"> {/* Added shadow-md, border */}
                                     <h2 className="text-2xl font-bold text-gray-800 mb-4">Quick Shorten</h2> {/* Adjusted title */}
                                     <p className="text-sm text-gray-500 mb-6">Shorten a link quickly without any settings</p> {/* Added description */}
                                     
@@ -246,7 +248,7 @@ export default function Home() {
                                     </form>
 
                                     {surl && (
-                                        <div className="mt-6 p-4 bg-gray-50 rounded-lg text-center space-y-2 border border-gray-200"> {/* Light gray background, border */}
+                                        <div className="mt-6 p-4 bg-gray-50 rounded-lg text-center space-y-2 border border-gray-300"> {/* Light gray background, border */}
                                             <p className="text-sm font-semibold">Your shortened URL is ready:</p>
                                             <div className="join w-full">
                                                 <input 
@@ -272,7 +274,7 @@ export default function Home() {
                                 </div>
                                 
                                 {/* --- QUICK STATS CARD (Adjusted classes) --- */}
-                                <div className="bg-white rounded-xl p-8 border border-gray-200"> {/* Added shadow-md, border */}
+                                <div className="bg-white rounded-xl p-8 border border-gray-300"> {/* Added shadow-md, border */}
                                     <div className="mb-6">
                                         <h1 className="text-2xl font-bold text-gray-800 mb-1">Quick Stats</h1> {/* Changed title to Quick Stats */}
                                         <p className="text-sm text-gray-500">Overview of your links</p>
@@ -291,7 +293,7 @@ export default function Home() {
                             </div>
 
                             {/* --- COLUMN 2: MY LINKS TABLE (Adjusted classes) --- */}
-                            <div className="flex-1 bg-white rounded-xl p-8 border border-gray-200">
+                            <div className="flex-1 min-h-[100px] bg-white rounded-xl p-8 border border-gray-300">
                                 <h2 className="text-2xl font-bold text-gray-800 mb-4">My Links</h2>
                                 {myLinks.length === 0 && !loading ? (
                                     <p className="text-gray-500">You haven't created any links yet.</p>
@@ -314,7 +316,7 @@ export default function Home() {
                     <div className="drawer-side is-drawer-close:overflow-visible">
                         <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
                         {/* Changed bg-base-200 to bg-white for sidebar background */}
-                        <div className="is-drawer-close:w-14 is-drawer-open:w-64 bg-white border-r border-gray-200 flex flex-col items-start min-h-full"> {/* Added border-r */}
+                        <div className="is-drawer-close:w-14 is-drawer-open:w-64 bg-white border-r border-gray-300 flex flex-col items-start min-h-full"> {/* Added border-r */}
                             <ul className="menu w-full grow">
                                 <li>
                                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
