@@ -5,9 +5,12 @@ import Login from './components/Login';
 import Home from './components/Home';
 import ForgotPassword from './components/Forgotpassword';
 import ResetPassword from './components/Resetpassword';
+import { Routes, Route, Link } from 'react-router-dom';
 //import './index.css'
 import './App.css';
-import { Routes, Route, Link } from 'react-router-dom';
+import ProtectedRoute from './Routes/ProtectedRoutes';
+import PublicRoute from './Routes/PublicRoutes';
+
 
 function App() {
   return (
@@ -28,10 +31,10 @@ function App() {
         </div>
       </div>
       <Routes>
-        <Route path='/Signup' element={<Signup />}/>
-        <Route path='/Login' element={<Login />}/>
-        <Route path='/Home' element={<Home />} />
-        <Route path='/' element={<Signup />} />
+        <Route path='/Signup' element={<PublicRoute><Signup /></PublicRoute>}/>
+        <Route path='/Login' element={<PublicRoute><Login /></PublicRoute>}/>
+        <Route path='/Home' element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path='/' element={<PublicRoute><Signup /></PublicRoute>} />
         <Route path='/Forgotpassword' element={<ForgotPassword />} />
         <Route path='/resetPassword/:token' element={<ResetPassword/>}/>
       </Routes>

@@ -4,9 +4,9 @@ const url = "https://www.google.com";
 
 const generateqr = async (req,res) => {
     try {
-        const url = "https://www.google.com";
+        const {originalURL} = req.body;
         
-        qrcode.toFile('qr.png',url,(err)=>{
+        qrcode.toFile('qr.png',originalURL,(err)=>{
             if(err) throw err;
             console.log('QR code saved to png');
         });

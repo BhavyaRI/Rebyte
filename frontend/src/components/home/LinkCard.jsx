@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-function LinkCard({ link, API_BASE_URL }) {
+function LinkCard({ link, API_BASE_URL,handleDelete,onShowQr }) {
   const [copied, setCopied] = useState(false);
   const shortUrl = `${API_BASE_URL}/${link.shortCode}`;
 
@@ -33,7 +33,7 @@ function LinkCard({ link, API_BASE_URL }) {
     <div className="bg-white border-gray-300 text-black border p-4 rounded-lg flex flex-row w-full">
       {" "}
       {/* Use rounded-lg for consistency */}
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden min-w-0">
         {" "}
         {/* Added overflow-hidden */}
         <div className="flex items-center gap-2 mb-2">
@@ -86,9 +86,9 @@ function LinkCard({ link, API_BASE_URL }) {
             )}
           </button>
         </div>
-        <p className="text-sm truncate" title={link.originalURL}>
-          <span className="font-semibold text-gray-600">Original URL:</span>{" "}
-          <span className="text-gray-500">{link.originalURL}</span>
+        <p className="text-sm flex" title={link.originalURL}>
+          <span className="font-semibold text-gray-600 mr-1 ">Original URL:</span>
+          <span className="text-gray-500 truncate min-w-0 max-w-md">{link.originalURL}</span>
         </p>
       </div>
       {/* Kebab Menu Dropdown */}
@@ -110,7 +110,7 @@ function LinkCard({ link, API_BASE_URL }) {
         </button>
         <ul
           tabIndex={0}
-          className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+          className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40"
         >
           {/* Note: Edit/Delete functionality is not implemented, but the UI is here */}
           <li>
@@ -171,7 +171,7 @@ function LinkCard({ link, API_BASE_URL }) {
               Share
             </a>
           </li>
-          <li>
+          <li onClick={()=>onShowQr(link)}>
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -202,7 +202,7 @@ function LinkCard({ link, API_BASE_URL }) {
             </a>
           </li>
           <div className="divider my-0"></div>
-          <li>
+          <li onClick={()=>handleDelete(link._id)}>
             <a className="text-error">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

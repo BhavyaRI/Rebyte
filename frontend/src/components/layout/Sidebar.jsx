@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function SideBar() {
+export default function SideBar({handleLogout}) {
   return (
     <div className="drawer-side is-drawer-close:overflow-visible">
       <label
@@ -78,6 +78,31 @@ export default function SideBar() {
                 <circle cx="7" cy="7" r="3"></circle>
               </svg>
               <span className="is-drawer-close:hidden">Settings</span>
+            </button>
+          </li>
+          <li onClick={handleLogout}>
+            <button
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Logout"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="inline-block size-4 my-1.5"
+
+              >
+                <path d="m16 17 5-5-5-5" />
+                <path d="M21 12H9" />
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              </svg>
+              <span className="is-drawer-close:hidden">Logout</span>
             </button>
           </li>
         </ul>

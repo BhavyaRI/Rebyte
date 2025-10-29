@@ -45,7 +45,31 @@ const getAllLinks = async (req, res) => {
   }
 };
 
+const deleteLink = async (req,res) => {
+  try {
+    const id = req.params.id;
+    console.log("req params:",req.params);
+    const deleted = await Link.findByIdAndDelete(id);
+    console.log("Deleted:",deleted);
+    if(!deleted){
+      return res.status(400).json({
+        message:"invalid linkID"
+      });
+    }
+    return res.status(200).json({
+      message:"link deletion successful"
+    });
+
+  } catch (error) {
+    return res.status(400).json({
+      status:"Failed",
+      message:error.message
+    });
+  }  
+};
+
 module.exports = {
   short,
   getAllLinks,
+  deleteLink
 };

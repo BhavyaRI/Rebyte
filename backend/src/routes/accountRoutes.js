@@ -1,7 +1,7 @@
 const express = require('express');
 const authcontrollers = require('../controllers/authcontroller');
 const {protect} = require('../middlewares/authMiddleware');
-const {short,getAllLinks} = require('../controllers/urlshortcontroller');
+const {short,getAllLinks,deleteLink} = require('../controllers/urlshortcontroller');
 const {generateqr} = require('../controllers/qrcodeGenerator');
 const router = express.Router();
 
@@ -15,6 +15,8 @@ router.get('/links',protect,getAllLinks);
 router.post('/forgotPassword',authcontrollers.forgotPassword);
 
 router.patch('/resetPassword/:token',authcontrollers.resetPassword);
+
+router.delete('/deleteLink/:id',deleteLink);
 
 router.get('/me',protect,authcontrollers.getMe);
 
