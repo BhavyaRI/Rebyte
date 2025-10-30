@@ -107,6 +107,15 @@ export default function Home() {
     }));
   };
 
+  const handleClick =(e,shortUrl)=>{
+    e.preventDefault();
+    window.open(shortUrl, '_blank', 'noopener,noreferrer');
+    setStats((prevStats)=>({
+      ...prevStats,
+      clicks:prevStats.clicks +1
+    }));
+  };
+
   const handleDelete = async (_id) => {
     try {
       const res = await fetch(`${API_BASE_URL}/api/deleteLink/${_id}`, {
@@ -155,6 +164,7 @@ export default function Home() {
                 API_BASE_URL={API_BASE_URL}
                 handleDelete={handleDelete}
                 onShowQr={handleShowQr}
+                handleClick={handleClick}
               />
             </div>
           </div>

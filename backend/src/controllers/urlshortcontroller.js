@@ -3,17 +3,23 @@ const counterService = require("../utils/counterService");
 const Link = require("../models/link"); // <-- CHANGED to CommonJS 'require'
 const encode = require("../utils/base62"); // <-- CHANGED to CommonJS 'require'
 const Counter = require("../models/counter");
+const {nanoid} = require("nanoid");
 
 const short = async (req, res) => {
   try {
     let { originalURL } = req.body;
-    const newID = await counterService.nextSequence("LinkID");
-    const shortCode = encode(newID);
+    /* const newID = await counterService.nextSequence("LinkID");
+    const shortCode = encode(newID); */
+    let shortCode;
+    let existLink;
+    do {
+      shortCode = nanoid(7);
+      existLink = await Link.findOne({ shortCode: shortCode });
+    } while (existLink);
     const userId = req.user._id;
     if (!/^https?:\/\//i.test(originalURL)) {
       originalURL = "https://" + originalURL;
     }
-    console.log("originalURL", originalURL);
     const newLink = new Link({
       userId: userId,
       originalURL: originalURL,
@@ -45,31 +51,28 @@ const getAllLinks = async (req, res) => {
   }
 };
 
-const deleteLink = async (req,res) => {
+const deleteLink = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log("req params:",req.params);
     const deleted = await Link.findByIdAndDelete(id);
-    console.log("Deleted:",deleted);
-    if(!deleted){
+    if (!deleted) {
       return res.status(400).json({
-        message:"invalid linkID"
+        message: "invalid linkID",
       });
     }
     return res.status(200).json({
-      message:"link deletion successful"
+      message: "link deletion successful",
     });
-
   } catch (error) {
     return res.status(400).json({
-      status:"Failed",
-      message:error.message
+      status: "Failed",
+      message: error.message,
     });
-  }  
+  }
 };
 
 module.exports = {
   short,
   getAllLinks,
-  deleteLink
+  deleteLink,
 };

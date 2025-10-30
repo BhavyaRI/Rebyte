@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import Link from "./link";
+const mongoose = require('mongoose');
+const Link = require('../models/link');
 
 const analyticsSchema = new mongoose.Schema({
 
@@ -35,4 +35,4 @@ const analyticsSchema = new mongoose.Schema({
 
 const Analytics  = mongoose.model('Analytics',analyticsSchema);
 
-export default Analytics;
+module.exports = Analytics;

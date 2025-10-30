@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-function LinkCard({ link, API_BASE_URL,handleDelete,onShowQr }) {
+function LinkCard({ link, API_BASE_URL,handleDelete,onShowQr,handleClick}) {
   const [copied, setCopied] = useState(false);
   const shortUrl = `${API_BASE_URL}/${link.shortCode}`;
 
@@ -40,9 +40,8 @@ function LinkCard({ link, API_BASE_URL,handleDelete,onShowQr }) {
           <p className="font-semibold text-gray-800">Short URL:</p>
           {/* Make the short URL a clickable link */}
           <a
-            href={shortUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#"
+            onClick={(e)=>handleClick(e,shortUrl)}
             className="text-blue-600 hover:underline truncate"
             title={shortUrl}
           >
