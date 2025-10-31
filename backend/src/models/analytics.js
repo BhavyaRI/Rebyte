@@ -22,6 +22,9 @@ const analyticsSchema = new mongoose.Schema({
     country: {
         type: String,
     },
+    city:{
+        type:String,
+    },
     os: {
         type: String,
     },

@@ -18,7 +18,10 @@ export default function Home() {
 
   const qrModalRef = useRef(null);
 
-  const shortURL = qrCodeLink ? `${API_BASE_URL}/${qrCodeLink.shortCode}` : "";
+  const publicBaseURL = window.location.origin;
+  const shortURL = qrCodeLink
+    ? `${publicBaseURL}/r/${qrCodeLink.shortCode}`
+    : "";
 
   const handleShowQr = (link) => {
     setQrCodeLink(link);
@@ -26,7 +29,7 @@ export default function Home() {
   };
 
   const handleDownload = () => {
-    const svg = qrModalRef.current.querySelector("svg"); // find the actual SVG element
+    const svg = qrModalRef.current.querySelector("svg");
     const serializer = new XMLSerializer();
     const svgString = serializer.serializeToString(svg);
     const svgBlob = new Blob([svgString], {
@@ -34,7 +37,6 @@ export default function Home() {
     });
     const url = URL.createObjectURL(svgBlob);
 
-    // Create a canvas to draw the SVG
     const canvas = document.createElement("canvas");
     const size = 256;
     canvas.width = size;
@@ -46,7 +48,6 @@ export default function Home() {
       ctx.drawImage(img, 0, 0, size, size);
       URL.revokeObjectURL(url);
 
-      // Convert canvas to PNG and trigger download
       const pngUrl = canvas.toDataURL("image/png");
       const a = document.createElement("a");
       a.href = pngUrl;
@@ -58,11 +59,6 @@ export default function Home() {
     img.src = url;
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("jwtToken");
-    window.location.href = "/"; 
-  };
-
   // --- 1. FETCH INITIAL LINKS ON PAGE LOAD ---
   useEffect(() => {
     const fetchLinks = async () => {
@@ -70,7 +66,7 @@ export default function Home() {
         const token = localStorage.getItem("jwtToken");
         if (!token) throw new Error("No token found");
 
-        const response = await fetch(`${API_BASE_URL}/api/links`, {
+        const response = await fetch(`/api/links`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -107,18 +103,18 @@ export default function Home() {
     }));
   };
 
-  const handleClick =(e,shortUrl)=>{
+  const handleClick = (e, shortUrl) => {
     e.preventDefault();
-    window.open(shortUrl, '_blank', 'noopener,noreferrer');
-    setStats((prevStats)=>({
+    window.open(shortUrl, "_blank", "noopener,noreferrer");
+    setStats((prevStats) => ({
       ...prevStats,
-      clicks:prevStats.clicks +1
+      clicks: prevStats.clicks + 1,
     }));
   };
 
   const handleDelete = async (_id) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/deleteLink/${_id}`, {
+      const res = await fetch(`/api/deleteLink/${_id}`, {
         method: "DELETE",
       });
       console.log("Id:", _id);
@@ -140,42 +136,31 @@ export default function Home() {
 
   return (
     <>
-      {/* Main container with white background */}
-      <div className="min-h-screen bg-white">
-        <div className="drawer drawer-open">
-          <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content">
-            {/* Flex container for the two main columns */}
-            <div className="flex flex-row lg:flex-row p-4 lg:p-8 gap-6 items-start">
-              {/* --- COLUMN 1: FORM & STATS --- */}
-              <div className="flex flex-col gap-6 lg:w-1/3">
-                {/* --- CREATE LINK CARD (Adjusted classes) --- */}
-                <QuickShortenForm
-                  API_BASE_URL={API_BASE_URL}
-                  onLinkAdded={handleLinkAdded}
-                />
-                {/* --- QUICK STATS CARD (Adjusted classes) --- */}
-                <QuickStats stats={stats} />
-              </div>
-
-              {/* --- COLUMN 2: MY LINKS TABLE (Adjusted classes) --- */}
-              <LinkList
-                myLinks={myLinks}
-                API_BASE_URL={API_BASE_URL}
-                handleDelete={handleDelete}
-                onShowQr={handleShowQr}
-                handleClick={handleClick}
-              />
-            </div>
-          </div>
-          {/* --- SIDEBAR (Adjusted classes) --- */}
-          <SideBar handleLogout={handleLogout}/>
+      {/* Main container*/}
+      <div className="flex flex-row lg:flex-row p-4 lg:p-8 gap-6 items-start">
+        {/* --- COLUMN 1: FORM & STATS --- */}
+        <div className="flex flex-col gap-6 lg:w-1/3">
+          {/* --- CREATE LINK CARD--- */}
+          <QuickShortenForm
+            API_BASE_URL={API_BASE_URL}
+            onLinkAdded={handleLinkAdded}
+          />
+          {/* --- QUICK STATS CARD--- */}
+          <QuickStats stats={stats} />
         </div>
+
+        {/* --- COLUMN 2: MY LINKS TABLE--- */}
+        <LinkList
+          myLinks={myLinks}
+          API_BASE_URL={API_BASE_URL}
+          handleDelete={handleDelete}
+          onShowQr={handleShowQr}
+          handleClick={handleClick}
+        />
       </div>
       <dialog id="qr_modal" className="modal" ref={qrModalRef}>
         <div className="modal-box flex flex-col items-center">
           <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
               ✕
             </button>
@@ -208,12 +193,10 @@ export default function Home() {
             </>
           )}
         </div>
-        {/* Click outside to close */}
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
         </form>
       </dialog>
-      
     </>
   );
 }

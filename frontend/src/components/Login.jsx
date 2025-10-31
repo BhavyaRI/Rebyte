@@ -25,7 +25,8 @@ const Login = () => {
     try {
       const logindata = { email, password };
       const response = await axios.post(
-        "http://localhost:3000/api/login",
+        //"http://localhost:3000/api/login",
+        "/api/login",
         logindata
       );
       console.log("Login successful", response.data);

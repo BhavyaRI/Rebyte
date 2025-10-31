@@ -2,13 +2,12 @@ import React from "react";
 import { useState } from "react";
 
 export default function QuickShortenForm({ API_BASE_URL, onLinkAdded }) {
-  // All form-related state lives HERE
+
   const [link, setLink] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [surl, setSurl] = useState("");
 
-  // The form's handleSubmit logic lives HERE
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -19,7 +18,7 @@ export default function QuickShortenForm({ API_BASE_URL, onLinkAdded }) {
       const token = localStorage.getItem("jwtToken");
       if (!token) throw new Error("No token found");
 
-      const response = await fetch(`${API_BASE_URL}/api/shorten`, {
+      const response = await fetch("/api/shorten", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,12 +34,10 @@ export default function QuickShortenForm({ API_BASE_URL, onLinkAdded }) {
 
       const newLinkObject = await response.json();
 
-      // --- 3. COMMUNICATE UP TO PARENT ---
-      // Call the prop function passed from Home.jsx
       onLinkAdded(newLinkObject);
-
-      setSurl(`${API_BASE_URL}/${newLinkObject.shortCode}`);
-      setLink(""); // Clear the input field
+      const publicBaseURL = window.location.origin;
+      setSurl(`${publicBaseURL}/r/${newLinkObject.shortCode}`);
+      setLink(""); 
     } catch (err) {
       console.error("Error:", err);
       setError(err.message || "Something went wrong");
@@ -50,7 +47,7 @@ export default function QuickShortenForm({ API_BASE_URL, onLinkAdded }) {
   };
 
   return (
-    // This is the JSX from your "CREATE LINK CARD" (lines 274-329)
+    // "CREATE LINK CARD" 
     <div className="bg-white rounded-xl p-8 border border-gray-300">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Quick Shorten</h2>
       <p className="text-sm text-gray-500 mb-6">

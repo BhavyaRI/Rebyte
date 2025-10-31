@@ -9,7 +9,6 @@ export default function LinkList({ myLinks, loading, API_BASE_URL,handleDelete ,
       {myLinks.length === 0 && !loading ? (
         <p className="text-gray-500">You haven't created any links yet.</p>
       ) : (
-        // Replaced the table with a flex column of LinkCards
         <div className="flex flex-col gap-4">
           {myLinks.map((link) => (
             <LinkCard key={link._id} link={link} API_BASE_URL={API_BASE_URL} handleDelete={handleDelete} onShowQr={onShowQr} handleClick={handleClick} />

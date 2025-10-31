@@ -18,7 +18,8 @@ const trackClick = async ({shortCode,ipAddress,userAgent})=>{
         browser:uaResult.browser.name,
         os:uaResult.os.name,
         device:uaResult.device.type || 'desktop',
-        country:loc?loc.country:'Unknown'
+        country:loc?loc.country:'Unknown',
+        city:loc?loc.city:'Unknown',
     });
 
     try {

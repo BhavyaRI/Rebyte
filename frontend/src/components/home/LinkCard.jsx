@@ -1,26 +1,25 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function LinkCard({ link, API_BASE_URL,handleDelete,onShowQr,handleClick}) {
+
+function LinkCard({ link, API_BASE_URL, handleDelete, onShowQr, handleClick }) {
   const [copied, setCopied] = useState(false);
-  const shortUrl = `${API_BASE_URL}/${link.shortCode}`;
+  const navigate = useNavigate();
+  const publicBaseURL = window.location.origin;
+  const shortUrl = `${publicBaseURL}/r/${link.shortCode}`;
 
   const handleCopy = () => {
-    // Use document.execCommand for reliability in iframes
     const textArea = document.createElement("textarea");
     textArea.value = shortUrl;
-
-    // Make it invisible and non-disruptive
     textArea.style.position = "absolute";
     textArea.style.left = "-9999px";
     document.body.appendChild(textArea);
 
     textArea.select();
-
     try {
       document.execCommand("copy");
       setCopied(true);
-      // Reset the "copied" state after 2 seconds
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error("Failed to copy text: ", err);
@@ -29,19 +28,22 @@ function LinkCard({ link, API_BASE_URL,handleDelete,onShowQr,handleClick}) {
     document.body.removeChild(textArea);
   };
 
+  const handleAnalytics = () => {
+    const clickAnalyticsUrl = `/analytics/${link._id}`;
+    
+  }
+
+  
   return (
     <div className="bg-white border-gray-300 text-black border p-4 rounded-lg flex flex-row w-full">
       {" "}
-      {/* Use rounded-lg for consistency */}
       <div className="flex-1 overflow-hidden min-w-0">
         {" "}
-        {/* Added overflow-hidden */}
         <div className="flex items-center gap-2 mb-2">
           <p className="font-semibold text-gray-800">Short URL:</p>
-          {/* Make the short URL a clickable link */}
           <a
             href="#"
-            onClick={(e)=>handleClick(e,shortUrl)}
+            onClick={(e) => handleClick(e, shortUrl)}
             className="text-blue-600 hover:underline truncate"
             title={shortUrl}
           >
@@ -86,11 +88,15 @@ function LinkCard({ link, API_BASE_URL,handleDelete,onShowQr,handleClick}) {
           </button>
         </div>
         <p className="text-sm flex" title={link.originalURL}>
-          <span className="font-semibold text-gray-600 mr-1 ">Original URL:</span>
-          <span className="text-gray-500 truncate min-w-0 max-w-md">{link.originalURL}</span>
+          <span className="font-semibold text-gray-600 mr-1 ">
+            Original URL:
+          </span>
+          <span className="text-gray-500 truncate min-w-0 max-w-md">
+            {link.originalURL}
+          </span>
         </p>
       </div>
-      {/* Kebab Menu Dropdown */}
+      {/*Menu Dropdown */}
       <div className="dropdown dropdown-end">
         <button
           tabIndex={0}
@@ -111,7 +117,6 @@ function LinkCard({ link, API_BASE_URL,handleDelete,onShowQr,handleClick}) {
           tabIndex={0}
           className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40"
         >
-          {/* Note: Edit/Delete functionality is not implemented, but the UI is here */}
           <li>
             <a>
               <svg
@@ -131,7 +136,6 @@ function LinkCard({ link, API_BASE_URL,handleDelete,onShowQr,handleClick}) {
               Edit
             </a>
           </li>
-          {/* I've re-wired this to use the same handleCopy function */}
           <li onClick={handleCopy}>
             <a>
               <svg
@@ -151,26 +155,28 @@ function LinkCard({ link, API_BASE_URL,handleDelete,onShowQr,handleClick}) {
               Copy
             </a>
           </li>
-          <li>
+          <li onClick={() => navigate(`/analytics/${link._id}`, { state: { link } })}>
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
+                width="24"
+                height="24"
                 viewBox="0 0 24 24"
+                fill="none"
                 stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-chart-no-axes-column-icon lucide-chart-no-axes-column"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-                />
+                <path d="M5 21v-6" />
+                <path d="M12 21V3" />
+                <path d="M19 21V9" />
               </svg>
-              Share
+              Analysis
             </a>
           </li>
-          <li onClick={()=>onShowQr(link)}>
+          <li onClick={() => onShowQr(link)}>
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +207,7 @@ function LinkCard({ link, API_BASE_URL,handleDelete,onShowQr,handleClick}) {
             </a>
           </li>
           <div className="divider my-0"></div>
-          <li onClick={()=>handleDelete(link._id)}>
+          <li onClick={() => handleDelete(link._id)}>
             <a className="text-error">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

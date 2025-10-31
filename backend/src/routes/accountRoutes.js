@@ -4,10 +4,12 @@ const {protect} = require('../middlewares/authMiddleware');
 const {short,getAllLinks,deleteLink} = require('../controllers/urlshortcontroller');
 const {generateqr} = require('../controllers/qrcodeGenerator');
 const router = express.Router();
+const {getLinkData} = require('../controllers/linkAnalytics');
 
 router.post('/signin',authcontrollers.signin);
 router.post('/login',authcontrollers.login);
 router.get('/qrcode',generateqr);
+router.get('/analytics/:linkId',getLinkData);
 
 router.post('/shorten',protect,short);
 router.get('/links',protect,getAllLinks);

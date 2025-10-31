@@ -8,10 +8,8 @@ export default function SideBar({handleLogout}) {
         aria-label="close sidebar"
         className="drawer-overlay"
       ></label>
-      {/* Changed bg-base-200 to bg-white for sidebar background */}
       <div className="is-drawer-close:w-14 is-drawer-open:w-64 bg-white border-r border-gray-300 flex flex-col items-start min-h-full">
         {" "}
-        {/* Added border-r */}
         <ul className="menu w-full grow">
           <li>
             <button

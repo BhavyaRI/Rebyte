@@ -33,7 +33,8 @@ const Signup = () => {
     try {
       const signupData = { email, password, passwordConfirm };
       const response = await axios.post(
-        "http://localhost:3000/api/signin",
+        //"http://localhost:3000/api/signin",
+        "/api/signin",
         signupData
       );
       console.log("Signup successful:", response.data);
