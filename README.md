@@ -33,6 +33,79 @@
 
 ---
 
+## Project Structure
+```
+Rebyte/
+├── backend/
+│   ├── src/
+│   │   ├── controllers/
+│   │   │   ├── authcontroller.js
+│   │   │   ├── linkAnalytics.js
+│   │   │   ├── qrcodeGenerator.js
+│   │   │   └── urlshortcontroller.js
+│   │   ├── middlewares/
+│   │   │   └── authMiddleware.js
+│   │   ├── models/
+│   │   │   ├── analytics.js
+│   │   │   ├── counter.js
+│   │   │   ├── link.js
+│   │   │   └── userAccount.js
+│   │   ├── routes/
+│   │   │   └── accountRoutes.js
+│   │   └── utils/
+│   │       ├── analysisService.js
+│   │       ├── base62.js
+│   │       ├── counterService.js
+│   │       └── mail.js
+│   ├── app.js
+│   ├── config.env
+│   ├── package-lock.json
+│   ├── package.json
+│   └── server.js
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   │   ├── analyticsPage/
+│   │   │   │   ├── AnalyticsTableCard.jsx
+│   │   │   │   ├── ClicksChart.jsx
+│   │   │   │   └── StatCard.jsx
+│   │   │   ├── home/
+│   │   │   │   ├── LinkCard.jsx
+│   │   │   │   ├── LinkList.jsx
+│   │   │   │   ├── QuickShortenForm.jsx
+│   │   │   │   └── QuickStats.jsx
+│   │   │   ├── layout/
+│   │   │   │   ├── AppLayout.jsx
+│   │   │   │   ├── PublicLayout.jsx
+│   │   │   │   ├── Sidebar.jsx
+│   │   │   │   └── README.md
+│   │   │   ├── Forgotpassword.jsx
+│   │   │   ├── Home.jsx
+│   │   │   ├── LinkAnalytics.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Resetpassword.jsx
+│   │   │   └── Signup.jsx
+│   │   ├── Routes/
+│   │   │   ├── ProtectedRoute.jsx
+│   │   │   └── PublicRoute.jsx
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── .gitignore
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── README.md
+│   ├── tailwind.config.js
+│   └── vite.config.js
+│
+└── README.md
+```
 ## ⚙️ Installation & Setup
 
 ### Prerequisites
