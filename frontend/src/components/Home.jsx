@@ -66,6 +66,7 @@ export default function Home() {
         const token = localStorage.getItem("jwtToken");
         if (!token) throw new Error("No token found");
 
+        //proxied the /api to backend in vite.config.js so no need to specify full URL
         const response = await fetch(`/api/links`, {
           method: "GET",
           headers: {
@@ -97,10 +98,10 @@ export default function Home() {
   // --- 2. HANDLE NEW LINK CREATION ---
   const handleLinkAdded = (newLink) => {
     setMyLinks((prevLinks) => [newLink, ...prevLinks]);
-    setStats((prevStats) => ({
-      ...prevStats,
-      count: prevStats.count + 1,
-    }));
+      setStats((prevStats) => ({
+        ...prevStats,
+        count: prevStats.count + 1,
+      }));
   };
 
   const handleClick = (e, shortUrl) => {

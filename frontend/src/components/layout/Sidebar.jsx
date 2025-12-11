@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function SideBar({handleLogout}) {
+export default function SideBar({handleLogout,handleHome}) {
   return (
     <div className="drawer-side is-drawer-close:overflow-visible">
       <label
@@ -11,7 +11,7 @@ export default function SideBar({handleLogout}) {
       <div className="is-drawer-close:w-14 is-drawer-open:w-64 bg-white border-r border-gray-300 flex flex-col items-start min-h-full">
         {" "}
         <ul className="menu w-full grow">
-          <li>
+          <li onClick={handleHome}>
             <button
               className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
               data-tip="Homepage"

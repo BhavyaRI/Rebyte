@@ -41,7 +41,6 @@ const getAllLinks = async (req, res) => {
   try {
     const userId = req.user._id;
     const links = await Link.find({ userId: userId }).sort({ createdAt: -1 });
-
     return res.status(200).json(links);
   } catch (error) {
     return res.status(400).json({

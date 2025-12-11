@@ -12,7 +12,7 @@ const ForgotPassword = () => {
       const useremail = { email };
       console.log(useremail);
       const response = await axios.post(
-        "https://psychic-system-xxxp69rwj7j399gq-3000.app.github.dev/api/forgotPassword",
+        "/api/forgotPassword",
         useremail
       );
       console.log("Email sent successfully", response.data);

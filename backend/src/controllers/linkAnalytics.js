@@ -28,30 +28,16 @@ const getLinkData = async (req, res) => {
             {
               $group: {
                 _id: {
-                  $dateTrunc: {
-                    date: "$createdAt",
-                    unit: "day",
-                    timezone: "UTC" 
-                  }
+                  $dateToString: { format: "%Y-%m-%d", date: "$createdAt" },
                 },
                 count: { $sum: 1 },
               },
             },
-            {
-              $sort: { _id: 1 },
-            },
-            {
-              $project: {
-                _id: {
-                  $dateToString: { format: "%d-%m-%Y", date: "$_id" }
-                },
-                count: 1
-              }
-            }
+            { $sort: { _id: 1 } }, // Sort by date
           ],
           countries: [{ $sortByCount: "$country" }],
           cities: [{ $sortByCount: "$city" }],
-          browser: [{ $sortByCount: "$browser" }],
+          browsers: [{ $sortByCount: "$browser" }],
           os: [{ $sortByCount: "$os" }],
           device: [{ $sortByCount: "$device" }],
         },
@@ -78,7 +64,7 @@ const getLinkData = async (req, res) => {
       clicksOverTime: adata[0].clicksOverTime,
       countries: adata[0].countries,
       cities: adata[0].cities,
-      browser: adata[0].browser,
+      browsers: adata[0].browsers,
       os: adata[0].os,
       device: adata[0].device,
     };
@@ -87,12 +73,10 @@ const getLinkData = async (req, res) => {
     result.topDevice = result.device[0] ? result.device[0]._id : "N/A";
 
     res.json(result);
-
   } catch (error) {
     console.error("Aggregation error:", error.message);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
-
-module.exports = {getLinkData};
+module.exports = { getLinkData };

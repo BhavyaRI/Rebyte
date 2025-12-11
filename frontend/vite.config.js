@@ -14,20 +14,21 @@ export default defineConfig({
   ],
   server: {
     proxy: {
-      // String syntax: '/api' will be proxied to 'http://localhost:5000/api'
       '/api': {
         target: 'http://localhost:3000',
         changeOrigin: true,
         secure: false,
       },
-      '/r': {
-          target: 'http://localhost:3000', // Your backend
-          changeOrigin: true,
-          secure: false,
-        },
+      '/r/': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure:  false,
+      },
     },
     allowedHosts: [
-        '.ngrok-free.dev' // Allows all ngrok-free.dev subdomains
-      ]
-  }
+      '.ngrok-free. app'
+    ],
+  },
+  // 👇 ADD THIS
+  appType: 'spa',
 })
