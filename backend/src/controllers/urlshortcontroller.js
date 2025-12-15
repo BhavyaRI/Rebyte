@@ -3,13 +3,11 @@ const counterService = require("../utils/counterService");
 const Link = require("../models/link"); // <-- CHANGED to CommonJS 'require'
 const encode = require("../utils/base62"); // <-- CHANGED to CommonJS 'require'
 const Counter = require("../models/counter");
-const {nanoid} = require("nanoid");
+const { nanoid } = require("nanoid");
 
 const short = async (req, res) => {
   try {
     let { originalURL } = req.body;
-    /* const newID = await counterService.nextSequence("LinkID");
-    const shortCode = encode(newID); */
     let shortCode;
     let existLink;
     do {
@@ -26,8 +24,6 @@ const short = async (req, res) => {
       shortCode: shortCode,
     });
     await newLink.save();
-
-    const shortUrl = `http://localhost:3000/${shortCode}`;
     res.status(201).json(newLink);
   } catch (error) {
     return res.status(400).json({
@@ -43,9 +39,9 @@ const getAllLinks = async (req, res) => {
     const links = await Link.find({ userId: userId }).sort({ createdAt: -1 });
     return res.status(200).json(links);
   } catch (error) {
-    return res.status(400).json({
+    return res.status(500).json({
       status: "failed",
-      message: error.message,
+      message: "Internal Server Error",
     });
   }
 };
@@ -56,16 +52,16 @@ const deleteLink = async (req, res) => {
     const deleted = await Link.findByIdAndDelete(id);
     if (!deleted) {
       return res.status(400).json({
-        message: "invalid linkID",
+        message: "Invalid LinkID",
       });
     }
     return res.status(200).json({
       message: "link deletion successful",
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(500).json({
       status: "Failed",
-      message: error.message,
+      message: "Internal Server Error",
     });
   }
 };

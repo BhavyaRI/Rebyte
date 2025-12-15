@@ -1,7 +1,5 @@
 const qrcode = require('qrcode');
 
-const url = "https://www.google.com";
-
 const generateqr = async (req,res) => {
     try {
         const {originalURL} = req.body;
@@ -15,9 +13,9 @@ const generateqr = async (req,res) => {
             status:'success',
         });
     } catch (error) {
-        return res.status(400).json({
+        return res.status(500).json({
             status:"failed",
-            message:error.message,
+            message:"Internal server error",
         });
     }
     

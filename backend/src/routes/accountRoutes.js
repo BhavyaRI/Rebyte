@@ -20,7 +20,6 @@ router.patch('/resetPassword/:token',authcontrollers.resetPassword);
 
 router.delete('/deleteLink/:id',deleteLink);
 
-router.get('/me',protect,authcontrollers.getMe);
 
 module.exports=router;
 

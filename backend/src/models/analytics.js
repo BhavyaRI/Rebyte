@@ -1,41 +1,42 @@
-const mongoose = require('mongoose');
-const Link = require('../models/link');
+const mongoose = require("mongoose");
+const Link = require("../models/link");
 
-const analyticsSchema = new mongoose.Schema({
-
+const analyticsSchema = new mongoose.Schema(
+  {
     linkId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Link',
-        required: true,
-        index: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Link",
+      required: true,
+      index: true,
     },
     ipAddress: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     device: {
-        type: String,
+      type: String,
     },
     browser: {
-        type: String,
+      type: String,
     },
     country: {
-        type: String,
+      type: String,
     },
-    city:{
-        type:String,
+    city: {
+      type: String,
     },
     os: {
-        type: String,
+      type: String,
     },
-},
-    {
-        timestamps: {
-            createdAt: true,
-            updatedAt: false
-        }
-});
+  },
+  {
+    timestamps: {
+      createdAt: true,
+      updatedAt: false,
+    },
+  }
+);
 
-const Analytics  = mongoose.model('Analytics',analyticsSchema);
+const Analytics = mongoose.model("Analytics", analyticsSchema);
 
 module.exports = Analytics;
