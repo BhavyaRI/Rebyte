@@ -49,9 +49,9 @@ const LinkAnalytics = () => {
 
       try {
         const token = localStorage.getItem("jwtToken");
-
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
         const response = await axios.get(
-          `/api/analytics/${linkId}?startDate=${startDateStr}&endDate=${endDateStr}`,
+          `${API_BASE_URL}/api/analytics/${linkId}?startDate=${startDateStr}&endDate=${endDateStr}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

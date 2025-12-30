@@ -66,8 +66,7 @@ export default function Home() {
         const token = localStorage.getItem("jwtToken");
         if (!token) throw new Error("No token found");
 
-        //proxied the /api to backend in vite.config.js so no need to specify full URL
-        const response = await fetch(`/api/links`, {
+        const response = await fetch(`${API_BASE_URL}/api/links`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -115,7 +114,7 @@ export default function Home() {
 
   const handleDelete = async (_id) => {
     try {
-      const res = await fetch(`/api/deleteLink/${_id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/deleteLink/${_id}`, {
         method: "DELETE",
       });
       if (!res.ok) {

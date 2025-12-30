@@ -6,12 +6,14 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const useremail = { email };
       const response = await axios.post(
-        "/api/forgotPassword",
+        `${API_BASE_URL}/api/forgotPassword`,
         useremail
       );
       setSubmitted(true);

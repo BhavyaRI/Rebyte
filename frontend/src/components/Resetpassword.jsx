@@ -11,6 +11,8 @@ const ResetPassword = () => {
 
   const { token } = useParams();
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null); 
@@ -27,7 +29,7 @@ const ResetPassword = () => {
 
     try {
       const passworddata = { password, passwordConfirm };
-      const url = `/api/resetPassword/${token}`;
+      const url = `${API_BASE_URL}/api/resetPassword/${token}`;
       
       await axios.patch(url, passworddata);
 
