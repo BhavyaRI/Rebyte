@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import SideBar from './SideBar'; 
+import SideBar from './Sidebar'; 
 
 function AppLayout() {
   const navigate = useNavigate();
