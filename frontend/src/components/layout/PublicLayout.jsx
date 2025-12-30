@@ -7,7 +7,7 @@ const PublicLayout = () => {
       <div className="navbar bg-base shadow-md px-6">
         <div className="flex-1">
           <Link to="/" className="text-xl font-bold text-neutral">
-            MyApp
+            ReByte
           </Link>
         </div>
         <div className="flex-none space-x-4">

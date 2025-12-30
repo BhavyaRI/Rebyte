@@ -11,6 +11,8 @@ const Signup = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+
   const handletoggle = () => {
     if (type === "password" && id === "password") {
       setType("text");
@@ -34,7 +36,7 @@ const Signup = () => {
       const signupData = { email, password, passwordConfirm };
       const response = await axios.post(
         //"http://localhost:3000/api/signin",
-        "/api/signin",
+        `${API_BASE_URL}/api/signin`,
         signupData
       );
       navigate("/Login");

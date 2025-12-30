@@ -7,7 +7,7 @@ import SideBar from "./layout/Sidebar";
 import { QRCodeSVG } from "qrcode.react";
 
 export default function Home() {
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";;
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
   // State for the dashboard
   const [myLinks, setMyLinks] = useState([]);
