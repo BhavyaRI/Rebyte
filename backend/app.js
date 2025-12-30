@@ -21,7 +21,6 @@ app.get("/r/:shortCode", async (req, res) => {
   const { shortCode } = req.params;
   const ipAddress = req.ip;
 
-  console.log(ipAddress);
 
   try {
     const originalURL = await trackClick({

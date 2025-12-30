@@ -79,8 +79,6 @@ const forgotPassword = async (req, res) => {
 
   const url = `${process.env.CLIENT_URL}/resetPassword/${resetToken}`;
   const message = `Forgot your password? Submit a request for new password at: ${url}.\nIf you didn't forget your password, please ignore this email!`;
-  console.log(url);
-  console.log(message);
   try {
     await sendMail({
       email: user.email,
