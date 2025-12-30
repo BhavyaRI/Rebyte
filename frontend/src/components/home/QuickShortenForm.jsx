@@ -36,7 +36,7 @@ export default function QuickShortenForm({ API_BASE_URL, onLinkAdded }) {
 
       onLinkAdded(newLinkObject);
       const publicBaseURL = window.location.origin;
-      setSurl(`${publicBaseURL}/r/${newLinkObject.shortCode}`);
+      setSurl(`${API_BASE_URL}/${newLinkObject.shortCode}`);
       setLink(""); 
     } catch (err) {
       console.error("Error:", err);

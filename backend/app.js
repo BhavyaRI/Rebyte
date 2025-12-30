@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const accountRoutes = require("./src/routes/accountRoutes");
 const cors = require("cors");
 const link = require("./src/models/link");
@@ -9,6 +10,15 @@ const { getLinkData } = require("./src/controllers/linkAnalytics");
 
 const app = express();
 
+const DB = process.env.MONGO_URL;
+
+if (mongoose.connection.readyState === 0) {
+    mongoose.connect(DB).then(() => {
+        console.log("Database connected successfully within App");
+    }).catch(err => {
+        console.error("DB Connection Error:", err.message);
+    });
+}
 
 app.set("trust proxy", true);
 app.use(cors());
@@ -17,10 +27,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", accountRoutes);
 
-app.get("/r/:shortCode", async (req, res) => {
+app.get("/:shortCode", async (req, res) => {
   const { shortCode } = req.params;
-  const ipAddress = req.ip;
-
 
   try {
     const originalURL = await trackClick({

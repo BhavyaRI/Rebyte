@@ -20,7 +20,7 @@ export default function Home() {
 
   const publicBaseURL = window.location.origin;
   const shortURL = qrCodeLink
-    ? `${publicBaseURL}/r/${qrCodeLink.shortCode}`
+    ? `${API_BASE_URL}/${qrCodeLink.shortCode}`
     : "";
 
   const handleShowQr = (link) => {

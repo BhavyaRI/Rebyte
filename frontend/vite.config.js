@@ -19,11 +19,7 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
-      '/r/': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-        secure:  false,
-      },
+      
     },
     allowedHosts: [
       '.ngrok-free. app'

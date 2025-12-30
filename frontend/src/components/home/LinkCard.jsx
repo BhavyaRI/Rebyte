@@ -7,7 +7,7 @@ function LinkCard({ link, API_BASE_URL, handleDelete, onShowQr, handleClick }) {
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
   const publicBaseURL = window.location.origin;
-  const shortUrl = `${publicBaseURL}/r/${link.shortCode}`;
+  const shortUrl = `${API_BASE_URL}/${link.shortCode}`;
 
   const handleCopy = () => {
     const textArea = document.createElement("textarea");
@@ -42,8 +42,9 @@ function LinkCard({ link, API_BASE_URL, handleDelete, onShowQr, handleClick }) {
         <div className="flex items-center gap-2 mb-2">
           <p className="font-semibold text-gray-800">Short URL:</p>
           <a
-            href="#"
-            onClick={(e) => handleClick(e, shortUrl)}
+            href={shortUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-blue-600 hover:underline truncate"
             title={shortUrl}
           >
