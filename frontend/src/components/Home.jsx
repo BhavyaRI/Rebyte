@@ -3,7 +3,7 @@ import LinkCard from "./home/LinkCard";
 import QuickStats from "./home/QuickStats";
 import LinkList from "./home/LinkList";
 import QuickShortenForm from "./home/QuickShortenForm";
-import SideBar from "./layout/SideBar";
+import SideBar from "./layout/Sidebar";
 import { QRCodeSVG } from "qrcode.react";
 
 export default function Home() {
