@@ -21,7 +21,13 @@ if (mongoose.connection.readyState === 0) {
 }
 
 app.set("trust proxy", true);
-app.use(cors());
+app.use(cors({
+    origin: [
+        "http://localhost:5173", 
+        "https://rebyte-khaki.vercel.app" // <--- PASTE YOUR ACTUAL FRONTEND URL HERE
+    ],
+    credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
