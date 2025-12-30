@@ -76,8 +76,8 @@ const forgotPassword = async (req, res) => {
 
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
-
-  const url = `${process.env.CLIENT_URL}/resetPassword/${resetToken}`;
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+  const url = `${API_BASE_URL}/resetPassword/${resetToken}`;
   const message = `Forgot your password? Submit a request for new password at: ${url}.\nIf you didn't forget your password, please ignore this email!`;
   try {
     await sendMail({
