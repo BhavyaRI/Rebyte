@@ -29,7 +29,6 @@ const Login = () => {
         "/api/login",
         logindata
       );
-      console.log("Login successful", response.data);
       if (response.data.token) {
         localStorage.setItem("jwtToken", response.data.token);
       }

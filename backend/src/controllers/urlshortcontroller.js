@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const counterService = require("../utils/counterService");
-const Link = require("../models/link"); // <-- CHANGED to CommonJS 'require'
-const encode = require("../utils/base62"); // <-- CHANGED to CommonJS 'require'
-const Counter = require("../models/counter");
+const Link = require("../models/link"); 
+const encode = require("../utils/base62"); 
 const { nanoid } = require("nanoid");
 
 const short = async (req, res) => {

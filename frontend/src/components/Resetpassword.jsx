@@ -6,14 +6,14 @@ const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [error, setError] = useState(null);
-  // Add a submitted state to show success message
+ 
   const [submitted, setSubmitted] = useState(false);
 
   const { token } = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Clear previous errors
+    setError(null); 
 
     if (password !== passwordConfirm) {
       setError("Passwords do not match.");
@@ -27,15 +27,12 @@ const ResetPassword = () => {
 
     try {
       const passworddata = { password, passwordConfirm };
-      // Note: The /r/ proxy fix we discussed is important for this URL to work correctly
       const url = `/api/resetPassword/${token}`;
       
       await axios.patch(url, passworddata);
 
-      // Instead of alert/navigate immediately, show success state
       setSubmitted(true);
     } catch (error) {
-      // Using the corrected error handling variable 'error'
       setError(
         error.response?.data?.message || "An unknown error occurred."
       );

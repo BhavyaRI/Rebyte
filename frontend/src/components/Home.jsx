@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import LinkCard from "./Home/LinkCard";
-import QuickStats from "./Home/QuickStats";
-import LinkList from "./Home/LinkList";
-import QuickShortenForm from "./Home/QuickShortenForm";
+import LinkCard from "./home/LinkCard";
+import QuickStats from "./home/QuickStats";
+import LinkList from "./home/LinkList";
+import QuickShortenForm from "./home/QuickShortenForm";
 import SideBar from "./layout/SideBar";
 import { QRCodeSVG } from "qrcode.react";
 
@@ -59,7 +59,7 @@ export default function Home() {
     img.src = url;
   };
 
-  // --- 1. FETCH INITIAL LINKS ON PAGE LOAD ---
+  // --- 1. fetch initial link ---
   useEffect(() => {
     const fetchLinks = async () => {
       try {
@@ -95,7 +95,7 @@ export default function Home() {
     fetchLinks();
   }, []);
 
-  // --- 2. HANDLE NEW LINK CREATION ---
+  // --- 2. handle new link ---
   const handleLinkAdded = (newLink) => {
     setMyLinks((prevLinks) => [newLink, ...prevLinks]);
       setStats((prevStats) => ({
@@ -118,7 +118,6 @@ export default function Home() {
       const res = await fetch(`/api/deleteLink/${_id}`, {
         method: "DELETE",
       });
-      console.log("Id:", _id);
       if (!res.ok) {
         throw new Error("Failed to delete the link");
       }
@@ -137,7 +136,7 @@ export default function Home() {
 
   return (
     <>
-      {/* Main container*/}
+      {/* Main cnt*/}
       <div className="flex flex-row lg:flex-row p-4 lg:p-8 gap-6 items-start">
         {/* --- COLUMN 1: FORM & STATS --- */}
         <div className="flex flex-col gap-6 lg:w-1/3">

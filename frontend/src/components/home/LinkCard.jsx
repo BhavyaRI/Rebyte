@@ -96,7 +96,7 @@ function LinkCard({ link, API_BASE_URL, handleDelete, onShowQr, handleClick }) {
           </span>
         </p>
       </div>
-      {/*Menu Dropdown */}
+      {/*menu dropdwn */}
       <div className="dropdown dropdown-end">
         <button
           tabIndex={0}

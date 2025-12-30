@@ -37,7 +37,6 @@ const Signup = () => {
         "/api/signin",
         signupData
       );
-      console.log("Signup successful:", response.data);
       navigate("/Login");
     } catch (error) {
       console.error("There was an error signing up", error.response.data);

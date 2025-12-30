@@ -2,10 +2,13 @@ const express = require("express");
 const accountRoutes = require("./src/routes/accountRoutes");
 const cors = require("cors");
 const link = require("./src/models/link");
-const app = express();
 const UAParser = require("ua-parser-js");
 const trackClick = require("./src/utils/analysisService");
 const { getLinkData } = require("./src/controllers/linkAnalytics");
+
+
+const app = express();
+
 
 app.set("trust proxy", true);
 app.use(cors());

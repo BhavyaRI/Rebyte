@@ -121,7 +121,7 @@ const LinkAnalytics = () => {
         </div>
       </div>
 
-      {/* 3 Stat Cards in ONE ROW */}
+      {/* stats card*/}
       <div className="flex flex-row gap-4 mx-6 mb-6">
         <div className="flex-1">
           <StatCard 
@@ -153,7 +153,7 @@ const LinkAnalytics = () => {
         <ClicksChart data={data.clicksOverTime} />
       </div>
 
-      {/* 2 Analytics Cards in ONE ROW */}
+      {/* Analytics card */}
       <div className="flex flex-row gap-4 mx-6 pb-8">
         <div className="flex-1">
           <AnalyticsTableCard

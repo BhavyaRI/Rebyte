@@ -4,7 +4,6 @@ import { Link, Outlet } from 'react-router-dom';
 const PublicLayout = () => {
   return (
     <div className='App'>
-      {/* This navbar is now ONLY for public pages */}
       <div className="navbar bg-base shadow-md px-6">
         <div className="flex-1">
           <Link to="/" className="text-xl font-bold text-neutral">
@@ -21,7 +20,7 @@ const PublicLayout = () => {
         </div>
       </div>
       
-      {/* Your public pages (Login, Signup, etc.) will render here */}
+    
       <Outlet />
     </div>
   );

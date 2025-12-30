@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const DataTable = ({ data }) => {
-  console.log("DataTable rendering with data:", data);
   
   if (!data || data.length === 0) {
     return (
@@ -76,11 +75,11 @@ const AnalyticsTableCard = ({ title, data1, data2, data3 }) => {
   return (
     <div className="w-full bg-white shadow-sm rounded-xl border border-gray-100">
       <div className="p-6">
-        {/* Card Header */}
+        {/* card head */}
         <h2 className="text-xl font-bold text-gray-900">{title}</h2>
         <p className="text-sm text-gray-500 mt-1">{subtitle}</p>
 
-        {/* Custom Tabs (matching the design) */}
+        {/* Tabs */}
         <div className="flex gap-6 mt-6 border-b border-gray-200">
           {validTabs.map((tab, index) => (
             <button
@@ -93,7 +92,7 @@ const AnalyticsTableCard = ({ title, data1, data2, data3 }) => {
               onClick={() => setActiveTab(index)}
             >
               {tab.label}
-              {/* Active indicator line */}
+              {/* indicator line */}
               {activeTab === index && (
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900" />
               )}
@@ -101,7 +100,7 @@ const AnalyticsTableCard = ({ title, data1, data2, data3 }) => {
           ))}
         </div>
 
-        {/* Tab Content */}
+        {/* tab data */}
         <div className="block w-full pb-2">
           <DataTable data={validTabs[activeTab]?.data} />
         </div>

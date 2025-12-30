@@ -47,7 +47,7 @@ export default function QuickShortenForm({ API_BASE_URL, onLinkAdded }) {
   };
 
   return (
-    // "CREATE LINK CARD" 
+    // quick url 
     <div className="bg-white rounded-xl p-8 border border-gray-300">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Quick Shorten</h2>
       <p className="text-sm text-gray-500 mb-6">

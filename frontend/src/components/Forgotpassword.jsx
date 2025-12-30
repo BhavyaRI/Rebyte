@@ -10,12 +10,10 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       const useremail = { email };
-      console.log(useremail);
       const response = await axios.post(
         "/api/forgotPassword",
         useremail
       );
-      console.log("Email sent successfully", response.data);
       setSubmitted(true);
     } catch (error) {
       console.error("Error in sending mail", error);

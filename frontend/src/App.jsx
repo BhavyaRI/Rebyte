@@ -21,7 +21,6 @@ import PublicRoute from './Routes/PublicRoutes';
 function App() {
   return (
     <Routes>
-      {/* --- PUBLIC ROUTES --- */}
       <Route 
         path="/" 
         element={<PublicRoute><PublicLayout /></PublicRoute>}
@@ -33,7 +32,6 @@ function App() {
         <Route path="resetPassword/:token" element={<ResetPassword />} />
       </Route>
 
-      {/* --- PROTECTED ROUTES --- */}
       <Route 
         path="/" 
         element={<ProtectedRoute><AppLayout /></ProtectedRoute>}
