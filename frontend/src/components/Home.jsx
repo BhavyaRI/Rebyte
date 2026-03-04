@@ -133,6 +133,14 @@ export default function Home() {
     }
   };
 
+  const handleEditLink = (linkId, newOriginalURL) => {
+    setMyLinks((prevLinks) =>
+      prevLinks.map((link) =>
+        link._id === linkId ? { ...link, originalURL: newOriginalURL } : link
+      )
+    );
+  };
+
   return (
     <>
       {/* Main cnt*/}
@@ -155,6 +163,7 @@ export default function Home() {
           handleDelete={handleDelete}
           onShowQr={handleShowQr}
           handleClick={handleClick}
+          onEditLink={handleEditLink}
         />
       </div>
       <dialog id="qr_modal" className="modal" ref={qrModalRef}>
