@@ -1,13 +1,15 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-function LinkCard({ link, API_BASE_URL, handleDelete, onShowQr, handleClick }) {
+function LinkCard({ link, API_BASE_URL, handleDelete, onShowQr, handleClick, onEditLink }) {
   const [copied, setCopied] = useState(false);
+  const [newOriginalURL, setNewOriginalURL] = useState(link.originalURL);
   const navigate = useNavigate();
   const publicBaseURL = window.location.origin;
   const shortUrl = `${API_BASE_URL}/${link.shortCode}`;
+  const editModalRef = useRef(null);
 
   const handleCopy = () => {
     const textArea = document.createElement("textarea");
@@ -118,7 +120,7 @@ function LinkCard({ link, API_BASE_URL, handleDelete, onShowQr, handleClick }) {
           tabIndex={0}
           className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40"
         >
-          <li>
+          <li onClick={() => editModalRef.current.showModal()}>
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -229,6 +231,49 @@ function LinkCard({ link, API_BASE_URL, handleDelete, onShowQr, handleClick }) {
           </li>
         </ul>
       </div>
+      <dialog className="modal" ref={editModalRef}>
+        <div className="modal-box">
+          <form method="dialog">
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+          <h3 className="font-bold text-lg mb-4">Edit Original URL</h3>
+          <input
+            type="text"
+            className="input input-bordered w-full mb-4"
+            value={newOriginalURL}
+            onChange={(e) => setNewOriginalURL(e.target.value)}
+          />
+          <button
+            type="button"
+            className="btn bg-red-600 text-white hover:bg-red-700"
+            onClick={async () => {
+              const token = localStorage.getItem("jwtToken");
+              const res = await fetch(`${API_BASE_URL}/api/editLink/${link._id}`, {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ originalURL: newOriginalURL }),
+              });
+              if (res.ok) {
+                onEditLink(link._id, newOriginalURL);
+                editModalRef.current.close();
+              } else {
+                const data = await res.json();
+                alert(data.message || "Failed to update link");
+              }
+            }}
+          >
+            Apply
+          </button>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </div>
   );
 }

@@ -65,8 +65,37 @@ const deleteLink = async (req, res) => {
   }
 };
 
+const editLink = async (req, res) => {
+  try {
+    const { id } = req.params;
+    let { originalURL } = req.body;
+    if (!originalURL) {
+      return res.status(400).json({ message: "originalURL is required" });
+    }
+    if (!/^https?:\/\//i.test(originalURL)) {
+      originalURL = "https://" + originalURL;
+    }
+    const link = await Link.findById(id);
+    if (!link) {
+      return res.status(404).json({ message: "Link not found" });
+    }
+    if (link.userId.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Not authorized to edit this link" });
+    }
+    link.originalURL = originalURL;
+    const updated = await link.save();
+    return res.status(200).json(updated);
+  } catch (error) {
+    return res.status(500).json({
+      status: "Failed",
+      message: "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
   short,
   getAllLinks,
   deleteLink,
+  editLink,
 };
